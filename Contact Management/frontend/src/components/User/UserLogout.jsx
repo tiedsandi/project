@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import { userLogout } from "../../lib/api/UserApi.js";
 
 export default function UserLogout() {
-  const [token, setToken] = useLocalStorage("token", "");
+  const [token, _] = useLocalStorage("token", "");
   const navigate = useNavigate();
 
   async function handleLogout() {
@@ -14,7 +14,7 @@ export default function UserLogout() {
     console.log(responseBody);
 
     if (response.status === 200) {
-      setToken("");
+      localStorage.removeItem("token");
       await navigate({
         pathname: "/login",
       });
