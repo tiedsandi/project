@@ -1,8 +1,7 @@
 import { useEffect, useRef } from "react";
-
 import Button from "../UI/Button";
 import Modal, { type ModalHandle } from "../UI/Modal";
-import { useSessionsContext } from "../../store/sessions-context";
+import { useSessions } from "../../hooks/useSessions";
 import UpcomingSession from "./UpcomingSession";
 
 type UpcomingSessionsProps = {
@@ -11,31 +10,24 @@ type UpcomingSessionsProps = {
 
 export default function UpcomingSessions({ onClose }: UpcomingSessionsProps) {
   const modal = useRef<ModalHandle>(null);
-  const sessionsCtx = useSessionsContext();
-
-  console.log(sessionsCtx);
+  const { upcomingSessions, cancelSession } = useSessions();
 
   useEffect(() => {
-    if (modal.current) {
-      modal.current.open();
-    }
+    modal.current?.open();
   }, []);
 
-  function handleCancelSession(sessionId: string) {
-    sessionsCtx.cancelSession(sessionId);
-  }
-  const hasSessions = sessionsCtx.upcomingSessions.length > 0;
+  const hasSessions = upcomingSessions.length > 0;
 
   return (
     <Modal modalRef={modal} onClose={onClose}>
       <h2>Upcoming Sessions</h2>
       {hasSessions && (
         <ul>
-          {sessionsCtx.upcomingSessions.map((session) => (
+          {upcomingSessions.map((session) => (
             <li key={session.id}>
               <UpcomingSession
                 session={session}
-                onCancel={() => handleCancelSession(session.id)}
+                onCancel={() => cancelSession(session.id)}
               />
             </li>
           ))}

@@ -1,33 +1,31 @@
 import { useEffect, useRef, type FormEvent } from "react";
 import type { ModalHandle } from "../UI/Modal";
-import { useSessionsContext, type Session } from "../../store/sessions-context";
+import { useSessions } from "../../hooks/useSessions";
 import Modal from "../UI/Modal";
 import Button from "../UI/Button";
 import Input from "../UI/Input";
+import type { Session } from "../../store/session-slice";
 
 type BookSessionProps = {
   session: Session;
-  onDone: () => void; // onDone will "tell" the parent component that the BookSession component should be removed from the DOM
+  onDone: () => void;
 };
 
 export default function BookSession({ session, onDone }: BookSessionProps) {
   const modal = useRef<ModalHandle>(null);
-  const sessionsCtx = useSessionsContext();
+  const { bookSession } = useSessions();
 
-  // useEffect is used to open the Modal via its exposed `open` method when the component is mounted
   useEffect(() => {
-    if (modal.current) {
-      modal.current.open();
-    }
+    modal.current?.open();
   }, []);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
     const formData = new FormData(event.currentTarget);
     const data = Object.fromEntries(formData);
-    console.log(data); // would normally be sent to a server, together with session data
-    sessionsCtx.bookSession(session);
+    console.log(data);
+
+    bookSession(session);
     onDone();
   }
 
