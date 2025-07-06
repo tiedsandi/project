@@ -1,4 +1,5 @@
 import { SESSIONS } from "../dummy-sessions.ts";
+import SessionsList from "../components/Sessions/SessionsList.tsx";
 
 export default function SessionsPage() {
   return (
@@ -11,7 +12,7 @@ export default function SessionsPage() {
           you!
         </p>
       </header>
-      {/* Todo: Output list of sessions */}
+      <SessionsList sessions={SESSIONS} />
     </main>
   );
 }
