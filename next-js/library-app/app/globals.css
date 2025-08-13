@@ -190,7 +190,7 @@
   }
 
   .book-btn {
-    @apply bg-dark-600 mt-3 min-h-14 w-full font-bebas-neue text-base text-primary;
+    @apply !bg-dark-600 mt-3 min-h-14 w-full font-bebas-neue text-base text-primary;
   }
 
   /* Borrowed Book */
@@ -258,7 +258,7 @@
   }
 
   .book-overview_btn {
-    @apply mt-4 min-h-14 w-fit bg-primary text-dark-100 hover:bg-primary/90 max-md:w-full!;
+    @apply flex justify-center items-center px-6  py-4 rounded-md mt-4 gap-2 min-h-8 w-fit bg-primary text-dark-100 hover:bg-primary/90 max-md:!w-full;
   }
 
   /* File Upload */
