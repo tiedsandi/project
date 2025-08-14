@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+/* @import "tailwindcss-animate"; */
 
 @custom-variant dark (&:is(.dark *));
 
@@ -388,7 +389,7 @@
   }
 
   .auth-box {
-    @apply bg-[var(--gradient-vertical)] mx-auto flex max-w-xl flex-col gap-6 rounded-lg p-10;
+    @apply mx-auto flex max-w-xl flex-col gap-6 rounded-lg p-10;
   }
 
   .auth-illustration {
