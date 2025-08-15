@@ -10,7 +10,6 @@ import { FIELD_NAMES, FIELD_TYPES } from "@/constants";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -71,15 +70,14 @@ const AuthForm = <T extends FieldValues>({
                   </FormLabel>
                   <FormControl>
                     {field.name === "universityCard" ? (
-                      // <FileUpload
-                      //   type="image"
-                      //   accept="image/*"
-                      //   placeholder="Upload your ID"
-                      //   folder="ids"
-                      //   variant="dark"
-                      //   onFileChange={field.onChange}
-                      // />
-                      <FileUpload />
+                      <FileUpload
+                        type="image"
+                        accept="image/*"
+                        placeholder="Upload your ID"
+                        folder="ids"
+                        variant="dark"
+                        onFileChange={field.onChange}
+                      />
                     ) : (
                       <Input
                         required
