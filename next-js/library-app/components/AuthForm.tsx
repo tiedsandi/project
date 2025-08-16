@@ -22,6 +22,8 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import React from "react";
 import { ZodType } from "zod";
+import { useRouter } from "next/navigation";
+import { useToast } from "./ui/toast-provider";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 interface Props<T extends FieldValues> {
@@ -37,14 +39,29 @@ const AuthForm = <T extends FieldValues>({
   defaultValues,
   onSubmit,
 }: Props<T>) => {
+  const router = useRouter();
   const isSignIn = type === "SIGN_IN";
+  const { showToast } = useToast();
 
   const form: UseFormReturn<T> = useForm({
     resolver: zodResolver(schema),
     defaultValues: defaultValues as DefaultValues<T>,
   });
 
-  const handleSubmit: SubmitHandler<T> = async (data) => {};
+  const handleSubmit: SubmitHandler<T> = async (data) => {
+    const result = await onSubmit(data);
+
+    if (result.success) {
+      if (isSignIn) {
+        showToast("Welcome back!", "You have successfully signed in.");
+      } else {
+        showToast("Account created!", "You have successfully signed up.");
+      }
+      router.push("/");
+    } else {
+      showToast("Error", result.error);
+    }
+  };
 
   return (
     <div className="flex flex-col gap-4">

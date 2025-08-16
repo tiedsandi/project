@@ -1,6 +1,9 @@
-import { config as loadEnv } from "dotenv";
+let dotenv: any;
 
-loadEnv({ path: ".env.local" });
+if (typeof process !== "undefined" && process.release?.name === "node") {
+  dotenv = await import("dotenv");
+  dotenv.config({ path: ".env.local" });
+}
 
 const config = {
   env: {
